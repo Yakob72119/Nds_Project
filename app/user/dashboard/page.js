@@ -1,6 +1,6 @@
 'use client';
 import { useAuth } from '@/app/hooks/useAuth';
-import AdminDashboard from '@/app/components/admin/AdminDashboard';
+import UserDashboard from '../../components/user/UserDashboard';
 
 
 export default function AdminDashboardPage() {
@@ -9,6 +9,5 @@ export default function AdminDashboardPage() {
   if (status === 'loading') {
     return <div>Loading...</div>;
   }
-
-  return <AdminDashboard />;
+  return <UserDashboard />;
 } 

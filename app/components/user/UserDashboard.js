@@ -1,10 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import Announcements from './Announcements';
-import AccountActivation from './AccountActivation';
-import PaymentData from './PaymentData';
-import AdminChat from './AdminChat';
+import PaymentHistory from './PaymentHistory';
+import UserChat from './UserChat';
 import Navigation from '../Navigation';
 
 
@@ -32,30 +30,19 @@ export default function AdminDashboard() {
                   Overview
                 </button>
                 <button
-                  onClick={() => setActiveTab('users')}
-                  className={`tab-button ${activeTab === 'users' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('adminchat')}
+                  className={`tab-button ${activeTab === 'adminchat' ? 'active' : ''}`}
                 >
-                  Users
-                </button>
-                <button
-                  onClick={() => setActiveTab('announcements')}
-                  className={`tab-button ${activeTab === 'announcements' ? 'active' : ''}`}
-                >
-                  Announcements
-                </button>
-                <button
-                  onClick={() => setActiveTab('accountActivation')}
-                  className={`tab-button ${activeTab === 'accountActivation' ? 'active' : ''}`}
-                >
-                  Account Activation
+                  Admin Chat
                 </button>
 
                 <button
-                  onClick={() => setActiveTab('paymentData')}
-                  className={`tab-button ${activeTab === 'paymentData' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('payment')}
+                  className={`tab-button ${activeTab === 'payment' ? 'active' : ''}`}
                 >
-                  Payment  History
+                  Payment History
                 </button>
+                
               </nav>
             </div>
             
@@ -67,24 +54,15 @@ export default function AdminDashboard() {
                 </div>
               )}
               
-              {activeTab === 'users' && (
-                <div>
-                  <h2 className="text-xl font-semibold mb-4">User Management</h2>
-                  <AdminChat />
-                </div>
+              {activeTab === 'adminchat' && (
+                  <UserChat />
+                
               )}
               
-              {activeTab === 'announcements' && (
-                <Announcements />
+              {activeTab === 'payment' && (
+                <PaymentHistory />
               )}
 
-              {activeTab === 'accountActivation' && (
-                <AccountActivation />
-              )}
-
-            {activeTab === 'paymentData' && (
-                <PaymentData />
-              )}
             </div>
           </div>
         </div>

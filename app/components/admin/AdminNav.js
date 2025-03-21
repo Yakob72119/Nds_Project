@@ -1,13 +1,18 @@
 'use client';
 import Link from 'next/link';
 import { FaUsers, FaBullhorn, FaMoneyBill, FaComments } from 'react-icons/fa';
+import PaymentData from './PaymentData';
+import AdminChat from './AdminChat';
+import Announcements from '../Announcements';
+import AccountActivation from './AccountActivation';
 
 export default function AdminNav({ activeTab, setActiveTab }) {
   const navItems = [
-    { id: 'accounts', label: 'Account Activation', icon: <FaUsers /> },
-    { id: 'announcements', label: 'Announcements', icon: <FaBullhorn /> },
-    { id: 'payments', label: 'Payment Data', icon: <FaMoneyBill /> },
-    { id: 'chat', label: 'Client Chat', icon: <FaComments /> }
+    { id: 'user', label: 'Account Activation', icon: <AdminChat /> },
+    { id: 'announcements', label: 'Announcements', icon: <Announcements /> },
+    { id: 'payments', label: 'Payment Data', icon: <PaymentData /> },
+    { id: 'chat', label: 'Client Chat', icon: <AdminChat /> },
+    { id: 'activation', label: 'Client Chat', icon: <AccountActivation /> }
   ];
 
   return (

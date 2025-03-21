@@ -43,7 +43,7 @@ export default function Navigation() {
             {status === 'authenticated' ? (
               <>
                 <Link 
-                  href={session.user.role === 'admin' ? '/admin/dashboard' : '/dashboard'} 
+                  href={session.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard'} 
                   className="nav-link"
                 >
                   Dashboard

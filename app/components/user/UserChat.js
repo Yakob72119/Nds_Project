@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Navigation from '../Navigation';
 
 export default function UserChat() {
   const [message, setMessage] = useState('');
@@ -17,7 +18,9 @@ export default function UserChat() {
   };
 
   return (
+
     <div className="bg-white rounded-lg shadow h-[calc(100vh-8rem)]">
+       <Navigation />
       <div className="flex flex-col h-full">
         {/* Chat Header */}
         <div className="p-4 border-b">

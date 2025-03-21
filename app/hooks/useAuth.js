@@ -12,7 +12,7 @@ export function useAuth(requiredRole) {
     if (!session) {
       router.replace('/login'); // ✅ Use replace() to prevent back button issue
     } else if (requiredRole && session.user.role !== requiredRole) {
-      router.replace(session.user.role === 'admin' ? '/admin/dashboard' : '/dashboard');
+      router.replace(session.user.role === 'admin' ? '/admin/dashboard' : '/user/dashboard');
     }
   }, [session, status, router, requiredRole]);
 

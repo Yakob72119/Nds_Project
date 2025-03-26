@@ -1,14 +1,13 @@
-
-
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
 import AmountModal from '../components/AmountModal';
 import PatientRegistrationForm from '../components/PatientRegistrationForm';
+import { useSession } from 'next-auth/react';
 
 export default function ServicesPage() {
   const [expandedCard, setExpandedCard] = useState(null);
@@ -18,6 +17,9 @@ export default function ServicesPage() {
   const [pendingService, setPendingService] = useState(null);
   const [pendingPatientData, setPendingPatientData] = useState(null);
   const [pendingAmount, setPendingAmount] = useState(null);
+  const [notification, setNotification] = useState('');
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const services = [
     {
@@ -47,7 +49,20 @@ export default function ServicesPage() {
     }
   ];
 
+  // Clear notification after 3 seconds
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
+
   const handleServiceContinue = (service, pkg) => {
+    if (status !== 'authenticated') {
+      router.push('/login');
+      return;
+    }
+
     if (service.title === "Health Services") {
       setPendingService({ service, pkg });
       setShowRegistrationForm(true);
@@ -58,6 +73,11 @@ export default function ServicesPage() {
         packageName: pkg.name,
         price: pkg.price,
       });
+
+      if (service.title === "Social Media Services" || service.title === "Education Services") {
+        // Trigger the notification immediately
+        setNotification(`${pkg.name} from ${service.title} added to cart!`);
+      }
     }
   };
 
@@ -89,6 +109,14 @@ export default function ServicesPage() {
             <h1 className="text-3xl font-bold mb-2">Our Services</h1>
             <p className="text-gray-600">Discover the range of services we offer.</p>
           </div>
+
+          {/* Notification Popup */}
+          {notification && (
+            <div className="fixed top-5 right-5 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg transition-opacity duration-500">
+              {notification}
+            </div>
+          )}
+
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {services.map((service, index) => (
